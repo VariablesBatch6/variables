@@ -1,0 +1,6 @@
+create database vardb;
+
+
+After running the application insert the below query to application work
+
+insert into role values (0,'ROLE_USER'), (1,'ROLE_ADMIN');
