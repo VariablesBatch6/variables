@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	
+</head>
+<body>
+
+	<div class="container">
+
+		<div class="starter-template">
+			<h2>OTP - Validate your OTP</h2>
+ 				
+ 			<form th:action="@{/user/validateOtpForModify}" method="post">
+                <fieldset>
+
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">
+                            Invalid Otp Try Again 
+                        </div>
+                    </div>
+                     
+                   
+                        <input type="text" class="form-control" name="otpnum" id="otpnum" required="required" />
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        	<input type="hidden" class="form-control" th:field=${user.firstName} id="firstName" name="firstName"/>
+							<input type="hidden" class="form-control" th:value="${user.lastName}" id="lastName" name="lastName"/>
+                            <input type="hidden" class="form-control" th:value="${user.phone}" id="phone" name="phone" />
+                            <input type="hidden" class="form-control" th:value="${user.email}" id="email" name="email" />
+                            <input type="hidden" class="form-control" th:value="${user.username}" id="username" name="username" />
+                            <input type="hidden" class="form-control" th:value="${user.password}" id="password" name="password" />                       	
+                            <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">validate Otp</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+		</div>
+
+		 
+	</div>
+
+	
+</body>
+</html>

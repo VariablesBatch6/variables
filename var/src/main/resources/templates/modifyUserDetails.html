@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+
+
+    <!-- Bootstrap Links-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://use.fontawesome.com/0b9bd56e4a.js"></script>
+    <!--end Bootstrap Links-->
+
+
+    <!-- CDN - DataTable LINKs-->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+        crossorigin="anonymous" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/dataTables.bootstrap.min.css"
+        crossorigin="anonymous" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/dataTables.jqueryui.min.css"
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/dataTables.uikit.min.css"
+        crossorigin="anonymous" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/jquery.dataTables_themeroller.css"
+        crossorigin="anonymous" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/jquery.dataTables.min.css"
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <!-- end CDN - DataTable LINKs-->
+
+
+</head>
+
+<body>
+    <!-- NAVIGATION NAVBAR-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Variable Bank</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/userFront}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/user/all}">Dashboard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTransfer" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Transfer Funds
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownTransfer">
+                            <a class="dropdown-item" th:href="@{/transfer/betweenAccounts}">Yourself</a>
+                            <a class="dropdown-item" th:href="@{/transfer/toSomeoneElse}">Others</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Me
+                            <!-- <span th:text="${username}" ></span> -->
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
+                            <a class="dropdown-item" th:href="@{/user/profile}">Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:href="@{/logout}">Signout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- end NAVIGATION NAVBAR-->
+
+
+<div class="container">
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="display-4">Modify User</h4>
+            </div>
+            <div class="card-body">
+
+                <form class="form-horizontal" method="post" th:action="@{/user/modify}">
+
+                    <div class="form-group">
+                        <label for="firstName" class="cols-sm-2 control-label">First
+                            Name</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" th:value="${user.firstName}" id="firstName"
+                                    name="firstName" placeholder="Enter your first name" required="required" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName" class="cols-sm-2 control-label">Last
+                            Name</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" th:value="${user.lastName}" id="lastName"
+                                    name="lastName" placeholder="Enter your last name" required="required" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="cols-sm-2 control-label">Phone</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" th:value="${user.phone}" id="phone" name="phone"
+                                    placeholder="xxx-xxx-xxxx" required="required" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="cols-sm-2 control-label">Your
+                            Email</label><span class="bg-danger pull-right" th:if="${emailExists}">Email
+                            already exists</span>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-envelope fa"
+                                        aria-hidden="true"></i></span>
+                                <input type="text" readonly class="form-control" th:value="${user.email}" id="email"
+                                    name="email" placeholder="Enter your Email" required="required" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="cols-sm-2 control-label">Username</label><span
+                            class="bg-danger pull-right" th:if="${usernameExists}">Username
+                            already exists</span>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                <input type="text" readonly class="form-control" th:value="${user.username}"
+                                    id="username" name="username" placeholder="Enter your Username"
+                                    required="required" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="cols-sm-2 control-label">Password</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-lg"
+                                        aria-hidden="true"></i></span>
+                                <input type="hidden" readonly class="form-control" th:value="${user.password}"
+                                    id="password" name="password" placeholder="Enter your Password"
+                                    required="required" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group ">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Modify User
+                            Deatils</button>
+                    </div>
+
+                    <hr />
+
+                    <div class="form-group ">
+                        <a class="btn btn-info btn-lg btn-block login-button" th:href="@{/}">Cancel</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                    <h4 class="display-4">Modify User Status</h4>
+            </div>
+            <div class="card-body">
+
+                <a th:href="@{/user/}+${user.username}+@{/disable}" class="text-danger">Disble User</a> <br>
+                <a th:href="@{/user/}+${user.username}+@{/enable}" class="text-success">Enable User</a>
+                <!-- <div th:switch="${user.enabled}">
+                    <div th:case="true">
+                        <form th:action="@{/user/}+${user.username}+@{/disable}">
+                            <h5>Click to <button type="submit" class="btn btn-danger">Disable</button> the user.</h5>
+                        </form>
+                    </div>
+                    <div th:case="false">
+                        <form th:action="@{/user/}+${user.username}+@{/enable}">
+                            <h5>Click to <button type="submit" class="btn btn-success">Enable</button> the user.</h5>
+                        </form>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/dataTables.jqueryui.min.js"
+        integrity="sha256-kWT2I9CDv5SowoYb8rAHuUBouBTE3lUdEpDrauNyQaA=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/scroller/2.0.0/js/dataTables.scroller.min.js" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/dataTables.uikit.min.js"
+        integrity="sha256-bLebl8jmNnwZH4W4EsldxPgSMD9UBTgSQa4NOAiEGNk=" crossorigin="anonymous"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"
+        integrity="sha256-5YmaxAwMjIpMrVlK84Y/+NjCpKnFYa8bWWBbUHSBGfU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"
+        integrity="sha256-s87nschhfp/x1/4+QUtIa99el2ot5IMQLrumROuHZbc=" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/0b9bd56e4a.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+
+    <script src="js/timeout.js"></script>
+</body>
+
+</html>

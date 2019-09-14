@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Home</title>
+
+
+    <!-- Bootstrap Links-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://use.fontawesome.com/0b9bd56e4a.js"></script>
+    <!--end Bootstrap Links-->
+
+</head>
+
+<body>
+    <!-- NAVIGATION NAVBAR-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Variable Bank</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/userFront}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/user/all}">Dashboard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTransfer" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Transfer Funds
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownTransfer">
+                            <a class="dropdown-item" th:href="@{/transfer/betweenAccounts}">Yourself</a>
+                            <a class="dropdown-item" th:href="@{/transfer/toSomeoneElse}">Others</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Me
+                            <!-- <span th:text="${username}" ></span> -->
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
+                            <a class="dropdown-item" th:href="@{/user/profile}">Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:href="@{/logout}">Signout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!-- end NAVIGATION NAVBAR-->
+
+<!-- Jumbotron -->
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Hello!</h1>
+        <hr class="my-4">
+        <p>Now banking's made easy! We wish you a good day and Happy Banking!</p>
+    </div>
+<!-- end Jumbotron-->
+
+
+
+<!-- Main Container - Displays Primary and Savings Balance -->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col-xs-6">
+                                <h2>Primary Balance: </h2>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <h1><i class="fa fa-usd" aria-hidden="true"></i> <span
+                                        th:text="${primaryAccount.accountBalance}">...</span></h1>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a th:href="@{/account/primaryAccount}">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    <div class="card">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="col-xs-6">
+                                    <h2>Savings Balance: </h2>
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <h1><i class="fa fa-usd" aria-hidden="true"></i> <span
+                                            th:text="${savingsAccount.accountBalance}">...</span></h1>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a th:href="@{/account/savingsAccount}">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- end Main Container - Displays Primary and Savings Balance -->
+
+            <!-- <div class="card">
+                        <div class="card-body">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h2>Primary Balance: </h2>
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <h1><i class="fa fa-usd" aria-hidden="true"></i> <span
+                                                    th:text="${primaryAccount.accountBalance}">...</span></h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a th:href="@{/account/primaryAccount}">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+
+            <!-- 
+
+                        <div class="card-body">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h2>Savings Balance: </h2>
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <h1><i class="fa fa-usd" aria-hidden="true"></i> <span
+                                                    th:text="${savingsAccount.accountBalance}">...</span></h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a th:href="@{/account/savingsAccount}">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                </a>
+                            </div>
+                        </div> -->
+
+
+
+
+            <!--  
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-credit-card fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div>Deposit</div>
+                        </div>
+                    </div>
+                </div>
+                <a th:href="@{/account/deposit}">
+                        <span class="pull-left">Go to Deposit</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-money fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div>Withdraw</div>
+                        </div>
+                    </div>
+                </div>
+                <a th:href="@{/account/withdraw}">
+                        <span class="pull-left">Go to Withdrawal</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                </a>
+            </div>
+        </div>
+        -->
+
+
+<!-- External Script Links -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+
+        <script src="js/timeout.js"></script>
+<!-- External Script Links -->
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Transfer</title>
+
+
+    <!-- Bootstrap Links-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://use.fontawesome.com/0b9bd56e4a.js"></script>
+    <!--end Bootstrap Links-->
+
+</head>
+
+<body>
+    <!-- NAVIGATION NAVBAR-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Variable Bank</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/userFront}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/user/all}">Dashboard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownTransfer" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Transfer Funds
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownTransfer">
+                            <a class="dropdown-item" th:href="@{/transfer/betweenAccounts}">Yourself</a>
+                            <a class="dropdown-item" th:href="@{/transfer/toSomeoneElse}">Others</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Me
+                            <!-- <span th:text="${username}" ></span> -->
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
+                            <a class="dropdown-item" th:href="@{/user/profile}">Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:href="@{/logout}">Signout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!-- end NAVIGATION NAVBAR-->
+
+<br><br>
+    <div class="container main">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="display-4">Transfer between your accounts</h4>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/transfer/betweenAccounts}" method="post">
+                            <div class="form-group">
+                                <label for="transferFrom">1. Please select the account you would like to transfer
+                                    From:</label>
+                                <select class="form-control" th:value="${transferFrom}" name="transferFrom"
+                                    id="transferFrom" required="required">
+                                    <option disabled="disabled" selected="selected"> -- select your account -- </option>
+                                    <option value="Primary">Primary</option>
+                                    <option value="Savings">Savings</option>
+                                </select>
+                                <br />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transferTo">2. Please select the account you would like to transfer
+                                    To:</label>
+                                    <select class="form-control" th:value="${transferTo}" name="transferTo" id="transferTo"
+                                        required="required">
+                                        <option disabled="disabled" selected="selected"> -- select your account -- </option>
+                                        <option value="Primary">Primary</option>
+                                        <option value="Savings">Savings</option>
+                                    </select>
+                                <br />
+                            </div>
+
+                            <div class="form-group">
+                                <label>3. Please specify the amount you would like to transfer: </label>
+                                <span class="input-group-addon">Amount $</span>
+                                <input th:value="${amount}" type="text" name="amount" id="amount" class="form-control"
+                                    aria-label="Amount (to the nearest dollar)" required="required"/>
+                            </div>
+
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Transfer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script>
+        $( document ).ready( function(){
+    $("#transferFrom").on("change",function(){
+        if($(this).val() == "Primary" )
+            $("#transferTo").val("Savings");
+        else if($(this).val()== "Savings")
+            $("#transferTo").val("Primary");
+    })
+    
+    
+    $("#transferTo").on("change",function(){
+    if($(this).val() == "Savings")
+    $("#transferFrom").val("Primary");
+    else if($(this).val()=="Primary")
+    $("#transferFrom").val("Savings");
+    })
+} );
+    </script>
+
+
+<!-- External Script Links -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+</script>
+
+<script src="js/timeout.js"></script>
+<!-- External Script Links -->
+    
+</body>
+
+</html>

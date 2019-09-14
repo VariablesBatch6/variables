@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Signup</title>
+
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+		crossorigin="anonymous" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/dataTables.bootstrap.min.css"
+		crossorigin="anonymous" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/dataTables.jqueryui.min.css"
+		crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/dataTables.uikit.min.css"
+		crossorigin="anonymous" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/jquery.dataTables_themeroller.css"
+		crossorigin="anonymous" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/css/jquery.dataTables.min.css"
+		crossorigin="anonymous" />
+	<script src="https://use.fontawesome.com/0b9bd56e4a.js"></script>
+</head>
+
+<body>
+	<!-- NAVIGATION NAVBAR-->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">Variable Bank</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/index}">Login</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active">Sign up</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container" style="padding-top: 20px;">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="card">
+					<div class="card-header text-center">
+						<h4 class="display-4">Sign up</h4>
+					</div>
+					<div class="card-body">
+						<!-- FORM -->
+						<form class="form-horizontal" method="post" th:action="@{/signup}">
+
+							<div class="form-group">
+								<label for="firstName" class="cols-sm-2 control-label">First
+									Name</label>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-user fa"
+												aria-hidden="true"></i></span>
+										<input type="text" class="form-control" th:value="${user.firstName}"
+											id="firstName" name="firstName" placeholder="Enter your first name"
+											required="required" />
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="lastName" class="cols-sm-2 control-label">Last
+									Name</label>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-user fa"
+												aria-hidden="true"></i></span>
+										<input type="text" class="form-control" th:value="${user.lastName}"
+											id="lastName" name="lastName" placeholder="Enter your last name"
+											required="required" />
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="phone" class="cols-sm-2 control-label">Phone</label>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-phone fa"
+												aria-hidden="true"></i></span>
+										<input type="text" class="form-control" th:value="${user.phone}" id="phone"
+											name="phone" placeholder="xxx-xxx-xxxx" required="required" />
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="email" class="cols-sm-2 control-label">Your
+									Email</label><span class="bg-danger pull-right" th:if="${emailExists}">Email
+									already exists</span>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-envelope fa"
+												aria-hidden="true"></i></span> <input type="text" class="form-control"
+											th:value="${user.email}" id="email" name="email"
+											placeholder="Enter your Email" required="required" />
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="username" class="cols-sm-2 control-label">Username</label><span
+									class="bg-danger pull-right" th:if="${usernameExists}">Username
+									already exists</span>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-users fa"
+												aria-hidden="true"></i></span>
+										<input type="text" class="form-control" th:value="${user.username}"
+											id="username" name="username" placeholder="Enter your Username"
+											required="required" />
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="password" class="cols-sm-2 control-label">Password</label>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-lock fa-lg"
+												aria-hidden="true"></i></span> <input type="password"
+											class="form-control" th:value="${user.password}" id="password"
+											name="password" placeholder="Enter your Password" required="required" />
+									</div>
+									<div class="checkbox">
+										<label> <input id="showPassword" type="checkbox" />Show
+											Password
+										</label>
+									</div>
+								</div>
+							</div>
+
+							<!--<div class="form-group">-->
+							<!--<label for="confirm" class="cols-sm-2 control-label">Confirm Secret</label>-->
+							<!--<div class="cols-sm-10">-->
+							<!--<div class="input-group">-->
+							<!--<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>-->
+							<!--<input type="secret" class="form-control" name="confirm" roleId="confirm"  placeholder="Confirm your Secret" required="required"/>-->
+							<!--</div>-->
+							<!--</div>-->
+							<!--</div>-->
+
+							<div class="form-group ">
+								<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Sign
+									up!</button>
+							</div>
+
+							<hr />
+
+							<div class="form-group ">
+								<a class="btn btn-info btn-lg btn-block login-button" th:href="@{/}">Cancel</a>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+	</script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.min.js"
+		integrity="sha256-t5ZQTZsbQi8NxszC10CseKjJ5QeMw5NINtOXQrESGSU=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/dataTables.jqueryui.min.js"
+		integrity="sha256-kWT2I9CDv5SowoYb8rAHuUBouBTE3lUdEpDrauNyQaA=" crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/scroller/2.0.0/js/dataTables.scroller.min.js" crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"
+		integrity="sha256-H3cjtrm/ztDeuhCN9I4yh4iN2Ybx/y1RM7rMmAesA0k=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/dataTables.uikit.min.js"
+		integrity="sha256-bLebl8jmNnwZH4W4EsldxPgSMD9UBTgSQa4NOAiEGNk=" crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"
+		integrity="sha256-5YmaxAwMjIpMrVlK84Y/+NjCpKnFYa8bWWBbUHSBGfU=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"
+		integrity="sha256-s87nschhfp/x1/4+QUtIa99el2ot5IMQLrumROuHZbc=" crossorigin="anonymous"></script>
+
+	<script>
+		$('#showPassword').click(function () {
+			$(this).is(':checked') ? $('#password').attr('type', 'text') : $('#password').attr('type',
+			'password');
+		});
+	</script>
+
+</body>
+
+</html>

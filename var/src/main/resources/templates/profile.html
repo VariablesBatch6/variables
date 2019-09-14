@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Transfer</title>
+
+
+    <!-- Bootstrap Links-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://use.fontawesome.com/0b9bd56e4a.js"></script>
+    <!--end Bootstrap Links-->
+
+</head>
+
+<body>
+    <!-- NAVIGATION NAVBAR-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Variable Bank</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/userFront}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/user/all}">Dashboard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownTransfer" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Transfer Funds
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownTransfer">
+                            <a class="dropdown-item" th:href="@{/transfer/betweenAccounts}">Yourself</a>
+                            <a class="dropdown-item" th:href="@{/transfer/toSomeoneElse}">Others</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Me
+                            <!-- <span th:text="${username}" ></span> -->
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
+                            <a class="dropdown-item" th:href="@{/user/profile}">Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:href="@{/logout}">Signout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- end NAVIGATION NAVBAR-->
+
+
+    <br><br>
+
+    <div class="container">
+        <div class="row main">
+
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="display-4">My Profile</h2>
+                        <hr />
+                        <form method="post" th:action="@{/user/profile}">
+                            <input type="hidden" name="id" th:value="${user.userId}" />
+
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa"
+                                                aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" th:value="${user.firstName}"
+                                            id="firstName" name="firstName" roleId="firstname"
+                                            placeholder="Enter your first name" required="required" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName" class="cols-sm-2 control-label">Last Name</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa"
+                                                aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" th:value="${user.lastName}"
+                                            id="lastName" name="lastName" roleId="lastName"
+                                            placeholder="Enter your last name" required="required" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="cols-sm-2 control-label">Phone</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-phone fa"
+                                                aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" th:value="${user.phone}" id="phone"
+                                            name="phone" roleId="phone" placeholder="xxx-xxx-xxxx"
+                                            required="required" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <fieldset disabled>
+                                <div class="form-group">
+                                    <label for="email" class="cols-sm-2 control-label">Your Email</label><span
+                                        class="bg-danger pull-right" th:if="${emailExists}">Email already exists</span>
+                                    <div class="cols-sm-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-envelope fa"
+                                                    aria-hidden="true"></i></span>
+                                            <input type="text" class="form-control" th:value="${user.email}" id="email"
+                                                name="email" roleId="email" placeholder="Enter your Email"
+                                                required="required" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="username" class="cols-sm-2 control-label">Username</label><span
+                                        class="bg-danger pull-right" th:if="${usernameExists}">Username already
+                                        exists</span>
+                                    <div class="cols-sm-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-users fa"
+                                                    aria-hidden="true"></i></span>
+                                            <input type="text" class="form-control" th:value="${user.username}"
+                                                id="username" name="username" roleId="username"
+                                                placeholder="Enter your Username" required="required" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div class="form-group ">
+                                <button type="submit" class="btn btn-primary btn-block ">Update Profile
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="panel-heading">
+                            <div class="panel-title text-center">
+                                <h1 class="title">Your Account Information</h1>
+                                <hr />
+                            </div>
+                            <div class="card-md-6">
+                                <div class="card-body">
+                                    <h5 class="text-left">Primary Account Number</h5>
+                                </div>
+                                <div class="text-center">
+                                    <h3><span data-th-text="${user.primaryAccount.accountNumber}">...</span></h3>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="card-md-6">
+                                    <div class="card-body">
+                                        <h4 class="text-left">Savings Account Number</h4>
+                                    </div>
+                                    <div class="text-center">
+                                        <h3><span data-th-text="${user.savingsAccount.accountNumber}">...</span></h3>
+                                    </div>
+                                </div>
+
+
+
+                            <!-- <table class="responstable">
+                                <tr>
+                                    <th>Primary Account Number</th>
+                                    <th>Savings Account Number</th>
+                                </tr>
+
+                                <tr>
+                                    <td data-th-text="${user.primaryAccount.accountNumber}">...</td>
+                                    <td data-th-text="${user.savingsAccount.accountNumber}">...</td>
+                                </tr>
+                            </table> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External Script Links -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <script src="js/timeout.js"></script>
+    <!-- External Script Links -->
+</body>
+
+</html>
